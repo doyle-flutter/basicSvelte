@@ -2,6 +2,7 @@
 	import {Router, Route} from 'svelte-routing';
 	import CategoryPage from './pages/CategoryPage.svelte';
 	import ErrorPage from './pages/ErrorPage.svelte';
+	import KakaoLoginPage from './pages/KakaoLoginSuccess.svelte';
 	import Home from './pages/HomePage.svelte';
 	import {count} from './state/count';
 
@@ -13,6 +14,7 @@
 <Router>
 	<Route path="/" ><Home {stateCount}/></Route>
 	<Route path="/a" ><CategoryPage /></Route>
+	<Route path="/kakaologin" ><KakaoLoginPage /></Route>
 	<Route path="/error" ><ErrorPage /></Route>
 </Router>
 

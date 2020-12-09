@@ -1,15 +1,19 @@
 const express = require('express'), 
     app = express(),
     cors = require('cors'),
-    axios = require('axios');
+    axios = require('axios'),
+    session = require('express-session');
 
 app.use(express.static('public'));
 app.use(cors());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+  }))
 
 app.listen(3003);
 
-
-app.get('/', (req, res) => res.sendFile(__dirname + "/public/index.html"));
 app.get('/auth', (req,res) => {
     let code = req.query.code;
     let error = req.query.error;
@@ -34,7 +38,20 @@ app.get('/auth', (req,res) => {
             code
         }
     })
-    .then( e => res.json(true))
-    .catch((err) => res.json(false));    
+    .then( _ => {
+        req.session.kid = 123;
+        res.redirect('/kakaologin');
+    })
+    .catch((_) => res.redirect('/error'));    
 });
+app.get('/kakaologin', (req,res) => {
+    if(req.session.kid === undefined){
+        return res.json("no!");
+    }
+    return res.sendFile(__dirname+'/public/kpage.html');
+});
+app.get('/logout', (req,res) => {
+    req.session.kid = undefined;
+    res.redirect('/');
+})
 app.get('*', (req, res) => res.sendFile(__dirname + "/public/index.html"));

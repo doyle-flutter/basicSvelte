@@ -7,6 +7,9 @@
     import AppBar from '../components/AppBar.svelte';
     import SlideImg from '../components/SlideImg.svelte';
     import KakaoLoginBtn from '../components/KakaoBtn.svelte'
+    
+    let myStorage = window.sessionStorage;
+    let kakaoLoginState = myStorage.getItem('kakao');
 </script>
 
 <div>
@@ -21,7 +24,18 @@
                 <p>{ko}</p>
             </div>
             <div>Store(State) : {stateCount}</div>
-            <KakaoLoginBtn />
+            <p>{kakaoLoginState}</p>
+            {#if kakaoLoginState === 'true'}
+                <p>카카오 로그인 회원</p>
+                <button on:click={() => {
+                    myStorage.setItem('kakao','false');
+                    window.location.replace('/');
+                    fetch('/logout').catch(_=>123);
+                }}>로그아웃</button>
+                {:else}
+                    <KakaoLoginBtn />
+            {/if}
+            
             <div>
                 <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
             </div>
