@@ -1,7 +1,5 @@
 <script>
-    import AppBar from "../AppBar.svelte";
-
-
+    import AppBar from "../components/AppBar.svelte";
 </script>
 
 <div>

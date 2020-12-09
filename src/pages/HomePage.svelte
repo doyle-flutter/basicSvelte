@@ -4,16 +4,14 @@
 	let github = "https://github.com/doyle-flutter";
     let ko = "제임쓰 Dev";
     export let stateCount;
-    import AppBar from '../AppBar.svelte';
-    import SlideImg from '../slideImg.svelte';
-    import KakaoLoginBtn from '../components/kakaoBtn.svelte'
+    import AppBar from '../components/AppBar.svelte';
+    import SlideImg from '../components/SlideImg.svelte';
+    import KakaoLoginBtn from '../components/KakaoBtn.svelte'
 </script>
 
 <div>
     <AppBar id=0/>
-    
     <SlideImg />
-    <KakaoLoginBtn />
     <main>
         <div class="main">
             <div>
@@ -23,6 +21,7 @@
                 <p>{ko}</p>
             </div>
             <div>Store(State) : {stateCount}</div>
+            <KakaoLoginBtn />
             <div>
                 <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
             </div>
