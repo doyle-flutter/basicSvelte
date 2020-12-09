@@ -1,8 +1,8 @@
 # Svelte
 
-
 - [x] Route/Nav
 - [x] Node.js(Express)
-- [ ] Kakao Login
-- [ ] State - Store
+- [x] Kakao Login - Token, Session
+- [x] Kakao Logout - Session
+- [x] State - Store
 - [ ] ... 준비중
