@@ -38,20 +38,30 @@ app.get('/auth', (req,res) => {
             code
         }
     })
-    .then( _ => {
-        req.session.kid = 123;
-        res.redirect('/kakaologin');
-    })
-    .catch((_) => res.redirect('/error'));    
+        .then( json => {
+            req.session.kid = 123;
+            req.session.token = json.data.access_token;
+            res.redirect('/kakaologin');
+        })
+        .catch((_) => res.redirect('/error'));    
 });
 app.get('/kakaologin', (req,res) => {
-    if(req.session.kid === undefined){
-        return res.json("no!");
-    }
+    if(req.session.kid === undefined) return res.json("no!");
     return res.sendFile(__dirname+'/public/kpage.html');
 });
 app.get('/logout', (req,res) => {
     req.session.kid = undefined;
-    res.redirect('/');
-})
+    let token = req.session.token;
+    let headers = {"Authorization": `Bearer ${token}`,};
+    return axios({
+            url: 'https://kapi.kakao.com/v1/user/logout',
+            method: 'post',
+            headers
+        })
+            .then(_ => {
+                req.session.token = undefined;
+                return res.redirect('/');
+            })
+            .catch(_ => res.json("ERR"));
+});
 app.get('*', (req, res) => res.sendFile(__dirname + "/public/index.html"));

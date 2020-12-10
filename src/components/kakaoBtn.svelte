@@ -7,6 +7,9 @@
     <a href={url}>kakao</a>
 </div>
 <style>
+    div.kakoBtn{
+        margin: 10px;
+    }
     div.kakoBtn > a{
         padding: 5px 20px;
         background-color: yellow;

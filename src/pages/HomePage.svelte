@@ -10,6 +10,17 @@
     
     let myStorage = window.sessionStorage;
     let kakaoLoginState = myStorage.getItem('kakao');
+    let logoutf = () => {
+        console.log("LOG");
+        fetch('http://192.168.0.3:3003/logout')
+            .then(
+                res => {
+                    myStorage.setItem('kakao','false');
+                    return window.location.replace('/');    
+                }
+            )
+            .catch( _ => alert("errr") );
+    }
 </script>
 
 <div>
@@ -24,14 +35,10 @@
                 <p>{ko}</p>
             </div>
             <div>Store(State) : {stateCount}</div>
-            <p>{kakaoLoginState}</p>
+            <p> Session 상태 : {kakaoLoginState}</p>
             {#if kakaoLoginState === 'true'}
                 <p>카카오 로그인 회원</p>
-                <button on:click={() => {
-                    myStorage.setItem('kakao','false');
-                    window.location.replace('/');
-                    fetch('/logout').catch(_=>123);
-                }}>로그아웃</button>
+                <button on:click={logoutf}>로그아웃</button>
                 {:else}
                     <KakaoLoginBtn />
             {/if}
