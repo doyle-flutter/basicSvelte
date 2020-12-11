@@ -6,7 +6,8 @@
     export let stateCount;
     import AppBar from '../components/AppBar.svelte';
     import SlideImg from '../components/SlideImg.svelte';
-    import KakaoLoginBtn from '../components/KakaoBtn.svelte'
+    import KakaoLoginBtn from '../components/KakaoBtn.svelte';
+    import KakaoPayBtn from '../components/KakaoPayBtn.svelte';
     
     let myStorage = window.sessionStorage;
     let kakaoLoginState = myStorage.getItem('kakao');
@@ -42,7 +43,7 @@
                 {:else}
                     <KakaoLoginBtn />
             {/if}
-            
+            <KakaoPayBtn />
             <div>
                 <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
             </div>

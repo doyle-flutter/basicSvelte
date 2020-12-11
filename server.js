@@ -64,4 +64,32 @@ app.get('/logout', (req,res) => {
             })
             .catch(_ => res.json("ERR"));
 });
+app.get('/kakaopay', (req,res) => {
+    const type = req.query.type;
+    const url = 'https://kapi.kakao.com/v1/payment/ready'; 
+    const adminKey = '';
+    const headers = {
+        "Authorization": `KakaoAK ${adminKey}`
+    };
+    const endPoint = 'http://192.168.219.130:3003';
+    params = {
+        "cid":"TC0ONETIME",
+        'partner_order_id':'partner_order_id',
+        'partner_user_id':'partner_user_id',
+        'item_name':'초코파이',
+        'quantity':'1',
+        'total_amount':'2200',
+        'vat_amount':'200',
+        'tax_free_amount':'0',
+        'approval_url':`${endPoint}/success`,
+        'fail_url':`${endPoint}/fail`,
+        'cancel_url':`${endPoint}/cancel`
+    };
+    axios({method:'post', url, headers,params})
+        .then(json => res.redirect(json.data.next_redirect_pc_url))
+        .catch(e => res.json(false));
+});
+app.get('/success', (req,res) => res.redirect('/'));
+app.get('/fail', (req,res) => res.json(false));
+app.get('/cancel', (req,res) => res.json(false));
 app.get('*', (req, res) => res.sendFile(__dirname + "/public/index.html"));
