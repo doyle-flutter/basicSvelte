@@ -6,6 +6,4 @@
 - [x] Kakao Logout - Token, Session
 - [x] State - Store
 - [x] Kakao Pay
-- [ ] Map
-- [ ] Demo
-- [ ] ... 준비중
+- [ ] Demo ... 
